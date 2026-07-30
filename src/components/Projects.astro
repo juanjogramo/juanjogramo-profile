@@ -1,0 +1,82 @@
+---
+import type { Profile } from '@/content/schema';
+import type { UiCopy } from '@/content/i18n/ui';
+
+interface Props {
+  profile: Profile;
+  ui: UiCopy;
+}
+
+const { profile, ui } = Astro.props;
+if (!profile.features.projects) return;
+---
+
+<section id="projects" class="section" aria-labelledby="projects-title">
+  <div class="container">
+    <p class="eyebrow">{ui.projects.eyebrow}</p>
+    <h2 id="projects-title" class="section-title">{ui.projects.title}</h2>
+
+    {
+      profile.projects.length === 0 ? (
+        <p class="empty">{ui.projects.empty}</p>
+      ) : (
+        <ul class="projects">
+          {profile.projects.map((project) => (
+            <li>
+              <article>
+                <div class="head">
+                  <h3>{project.name}</h3>
+                  <span>{ui.projects.status[project.status]}</span>
+                </div>
+                <p>{project.description}</p>
+                <ul class="tag-list">
+                  {project.technologies.map((tech) => (
+                    <li class="tag">{tech}</li>
+                  ))}
+                </ul>
+              </article>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .empty {
+    color: var(--color-ink-muted);
+    max-width: 40ch;
+  }
+
+  .projects {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    align-items: baseline;
+    justify-content: space-between;
+  }
+
+  h3 {
+    margin: 0;
+    font-family: var(--font-display);
+  }
+
+  .head span {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-accent);
+  }
+
+  p {
+    color: var(--color-ink-muted);
+  }
+</style>

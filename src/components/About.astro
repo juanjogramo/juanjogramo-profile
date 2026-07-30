@@ -1,0 +1,21 @@
+---
+import type { Profile } from '@/content/schema';
+import type { UiCopy } from '@/content/i18n/ui';
+
+interface Props {
+  profile: Profile;
+  ui: UiCopy;
+}
+
+const { profile, ui } = Astro.props;
+---
+
+<section id="about" class="section" aria-labelledby="about-title">
+  <div class="container">
+    <p class="eyebrow">{ui.about.eyebrow}</p>
+    <h2 id="about-title" class="section-title">{ui.about.title}</h2>
+    <div class="prose">
+      {profile.about.map((paragraph) => <p>{paragraph}</p>)}
+    </div>
+  </div>
+</section>

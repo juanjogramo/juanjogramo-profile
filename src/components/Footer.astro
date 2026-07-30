@@ -1,0 +1,37 @@
+---
+interface Props {
+  name: string;
+  year: number;
+  rights: string;
+  builtWith: string;
+}
+
+const { name, year, rights, builtWith } = Astro.props;
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <p>© {year} {name}. {rights}</p>
+    <p>{builtWith}</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    padding-block: var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .site-footer__inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    justify-content: space-between;
+    color: var(--color-ink-subtle);
+    font-size: var(--text-sm);
+  }
+
+  p {
+    margin: 0;
+  }
+</style>

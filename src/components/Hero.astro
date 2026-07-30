@@ -1,0 +1,155 @@
+---
+import type { Profile } from '@/content/schema';
+import type { UiCopy } from '@/content/i18n/ui';
+import Button from './Button.astro';
+
+interface Props {
+  profile: Profile;
+  ui: UiCopy;
+}
+
+const { profile, ui } = Astro.props;
+---
+
+<section class="hero" aria-labelledby="hero-name">
+  <div class="container hero__grid">
+    <div class="hero__copy">
+      <p class="eyebrow reveal">{profile.location}</p>
+      <h1 id="hero-name" class="hero__name reveal reveal-delay-1">{profile.fullName}</h1>
+      <p class="hero__title reveal reveal-delay-1">{profile.professionalTitle}</p>
+      <p class="hero__value reveal reveal-delay-2">{profile.valueProposition}</p>
+      <p class="hero__summary reveal reveal-delay-2">{profile.summary}</p>
+      <div class="btn-row reveal reveal-delay-3">
+        <Button href="#experience" variant="primary">{ui.hero.ctaPrimary}</Button>
+        <Button href="#contact" variant="secondary">{ui.hero.ctaSecondary}</Button>
+      </div>
+      <ul class="social-links reveal reveal-delay-3">
+        {
+          profile.contact.email && (
+            <li>
+              <a href={`mailto:${profile.contact.email}`}>{ui.contact.email}</a>
+            </li>
+          )
+        }
+        {
+          profile.contact.github && (
+            <li>
+              <a href={profile.contact.github} rel="noopener noreferrer" target="_blank">
+                {ui.contact.github}
+              </a>
+            </li>
+          )
+        }
+        {
+          profile.contact.linkedin && (
+            <li>
+              <a href={profile.contact.linkedin} rel="noopener noreferrer" target="_blank">
+                {ui.contact.linkedin}
+              </a>
+            </li>
+          )
+        }
+      </ul>
+    </div>
+
+    {
+      profile.features.portrait && profile.portrait && (
+        <div class="hero__media reveal reveal-delay-2">
+          <img
+            src={profile.portrait.src}
+            alt={profile.portrait.alt}
+            width="320"
+            height="373"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    isolation: isolate;
+    padding-block: clamp(3rem, 8vw, 6.5rem) var(--space-8);
+    background: var(--color-hero-glow);
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0;
+    height: 1px;
+    background: var(--color-border);
+  }
+
+  .hero__grid {
+    display: grid;
+    gap: var(--space-7);
+    align-items: end;
+  }
+
+  .hero__name {
+    margin: 0 0 var(--space-3);
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    line-height: var(--leading-tight);
+    letter-spacing: -0.035em;
+    font-weight: 760;
+    max-width: 12ch;
+  }
+
+  .hero__title {
+    margin: 0 0 var(--space-4);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-accent);
+    max-width: 28ch;
+  }
+
+  .hero__value {
+    margin: 0 0 var(--space-4);
+    font-size: var(--text-lg);
+    line-height: var(--leading-snug);
+    max-width: 34ch;
+    color: var(--color-ink);
+  }
+
+  .hero__summary {
+    margin: 0 0 var(--space-5);
+    max-width: 42ch;
+    color: var(--color-ink-muted);
+  }
+
+  .hero__media {
+    justify-self: start;
+  }
+
+  .hero__media img {
+    width: min(100%, 18rem);
+    aspect-ratio: 240 / 280;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+    background: var(--color-bg-muted);
+  }
+
+  @media (min-width: 860px) {
+    .hero__grid {
+      grid-template-columns: minmax(0, 1.3fr) minmax(14rem, 0.7fr);
+      align-items: center;
+    }
+
+    .hero__media {
+      justify-self: end;
+    }
+
+    .hero__media img {
+      width: 20rem;
+    }
+  }
+</style>

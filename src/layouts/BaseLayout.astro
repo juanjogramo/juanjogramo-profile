@@ -1,0 +1,123 @@
+---
+import '@/styles/global.css';
+import type { Locale } from '@/content/schema';
+import type { Profile } from '@/content/schema';
+import type { UiCopy } from '@/content/i18n/ui';
+import { siteConfig } from '@/content/site';
+import { htmlLang, alternateLocale } from '@/lib/i18n';
+import { personJsonLd, websiteJsonLd } from '@/lib/seo';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+
+interface Props {
+  locale: Locale;
+  profile: Profile;
+  ui: UiCopy;
+  title?: string;
+  description?: string;
+}
+
+const { locale, profile, ui, title, description } = Astro.props;
+const pageTitle = title
+  ? ui.meta.titleTemplate.replace('%s', title)
+  : `${profile.fullName} · ${profile.professionalTitle}`;
+const pageDescription = description ?? ui.meta.description;
+const canonical = new URL(Astro.url.pathname.replace(/\/$/, '') || '/', siteConfig.url).toString();
+const other = alternateLocale(locale);
+const otherPath = locale === 'en' ? '/es' : '/';
+const ogImage = new URL(siteConfig.socialImage, siteConfig.url).toString();
+const year = new Date().getFullYear();
+
+const navItems = [
+  { href: '#about', label: ui.nav.about },
+  { href: '#experience', label: ui.nav.experience },
+  { href: '#expertise', label: ui.nav.expertise },
+  ...(profile.features.caseStudies ? [{ href: '#work', label: ui.nav.work }] : []),
+  ...(profile.features.projects ? [{ href: '#projects', label: ui.nav.projects }] : []),
+  ...(profile.features.writing ? [{ href: '#writing', label: ui.nav.writing }] : []),
+  { href: '#education', label: ui.nav.education },
+  { href: '#contact', label: ui.nav.contact },
+];
+
+const personLd = personJsonLd(profile);
+const websiteLd = websiteJsonLd(pageDescription);
+---
+
+<!doctype html>
+<html lang={htmlLang(locale)}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <meta name="author" content={profile.fullName} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang={htmlLang(locale)} href={canonical} />
+    <link
+      rel="alternate"
+      hreflang={htmlLang(other)}
+      href={new URL(otherPath, siteConfig.url).toString()}
+    />
+    <link rel="alternate" hreflang="x-default" href={new URL('/', siteConfig.url).toString()} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteConfig.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={ui.meta.ogDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content={htmlLang(locale).replace('-', '_')} />
+    <meta property="og:locale:alternate" content={htmlLang(other).replace('-', '_')} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={ui.meta.ogDescription} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#0f6b63" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Syne:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <script is:inline>
+      (function () {
+        try {
+          var preference = localStorage.getItem('theme-preference') || 'system';
+          var theme =
+            preference === 'system'
+              ? window.matchMedia('(prefers-color-scheme: dark)').matches
+                ? 'dark'
+                : 'light'
+              : preference;
+          document.documentElement.dataset.theme = theme;
+        } catch {
+          document.documentElement.dataset.theme = 'light';
+        }
+      })();
+    </script>
+
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(personLd)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(websiteLd)} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{ui.skipToContent}</a>
+    <Header locale={locale} ui={ui} items={navItems} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer
+      name={profile.fullName}
+      year={year}
+      rights={ui.footer.rights}
+      builtWith={ui.footer.builtWith}
+    />
+  </body>
+</html>

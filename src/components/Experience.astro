@@ -1,0 +1,141 @@
+---
+import type { Profile } from '@/content/schema';
+import type { UiCopy } from '@/content/i18n/ui';
+import { formatPeriod } from '@/lib/i18n';
+
+interface Props {
+  profile: Profile;
+  ui: UiCopy;
+}
+
+const { profile, ui } = Astro.props;
+---
+
+<section id="experience" class="section section--alt" aria-labelledby="experience-title">
+  <div class="container">
+    <p class="eyebrow">{ui.experience.eyebrow}</p>
+    <h2 id="experience-title" class="section-title">{ui.experience.title}</h2>
+
+    <ol class="timeline">
+      {
+        profile.experience.map((job) => (
+          <li class="timeline__item">
+            <div class="timeline__meta">
+              <time datetime={`${job.start}/${job.end}`}>
+                {formatPeriod(job.start, job.end, job.current, ui.experience.present)}
+              </time>
+              {job.location && <span>{job.location}</span>}
+            </div>
+            <div class="timeline__body">
+              <h3>{job.role}</h3>
+              <p class="company">{job.company}</p>
+              <p class="summary">{job.summary}</p>
+              {job.highlights.length > 0 && (
+                <>
+                  <p class="list-label">{ui.experience.highlights}</p>
+                  <ul>
+                    {job.highlights.map((item) => (
+                      <li>{item}</li>
+                    ))}
+                  </ul>
+                </>
+              )}
+              {job.technologies.length > 0 && (
+                <>
+                  <p class="list-label">{ui.experience.technologies}</p>
+                  <ul class="tag-list">
+                    {job.technologies.map((tech) => (
+                      <li class="tag">{tech}</li>
+                    ))}
+                  </ul>
+                </>
+              )}
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .timeline {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .timeline__item {
+    display: grid;
+    gap: var(--space-3);
+    padding-bottom: var(--space-6);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .timeline__item:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .timeline__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-ink-subtle);
+  }
+
+  .timeline__body h3 {
+    margin: 0 0 var(--space-1);
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    letter-spacing: -0.02em;
+  }
+
+  .company {
+    margin: 0 0 var(--space-3);
+    font-weight: 600;
+    color: var(--color-accent);
+  }
+
+  .summary {
+    margin: 0 0 var(--space-4);
+    color: var(--color-ink-muted);
+    max-width: 62ch;
+  }
+
+  .list-label {
+    margin: 0 0 var(--space-2);
+    font-size: var(--text-xs);
+    font-family: var(--font-mono);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-ink-subtle);
+  }
+
+  .timeline__body ul:not(.tag-list) {
+    margin: 0 0 var(--space-4);
+    padding-left: 1.1rem;
+    color: var(--color-ink-muted);
+  }
+
+  .timeline__body li {
+    margin-bottom: var(--space-2);
+  }
+
+  @media (min-width: 800px) {
+    .timeline__item {
+      grid-template-columns: 11rem minmax(0, 1fr);
+      gap: var(--space-6);
+    }
+
+    .timeline__meta {
+      flex-direction: column;
+      gap: var(--space-2);
+      padding-top: 0.35rem;
+    }
+  }
+</style>

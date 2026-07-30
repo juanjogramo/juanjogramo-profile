@@ -1,0 +1,57 @@
+---
+import type { Profile } from '@/content/schema';
+import type { UiCopy } from '@/content/i18n/ui';
+
+interface Props {
+  profile: Profile;
+  ui: UiCopy;
+}
+
+const { profile, ui } = Astro.props;
+---
+
+<section id="contact" class="section section--alt" aria-labelledby="contact-title">
+  <div class="container contact">
+    <p class="eyebrow">{ui.contact.eyebrow}</p>
+    <h2 id="contact-title" class="section-title">{ui.contact.title}</h2>
+    <p class="body">{ui.contact.body}</p>
+
+    <ul class="social-links">
+      {
+        profile.contact.email && (
+          <li>
+            <a href={`mailto:${profile.contact.email}`}>
+              {ui.contact.email}: {profile.contact.email}
+            </a>
+          </li>
+        )
+      }
+      {
+        profile.contact.github && (
+          <li>
+            <a href={profile.contact.github} rel="noopener noreferrer" target="_blank">
+              {ui.contact.github}
+            </a>
+          </li>
+        )
+      }
+      {
+        profile.contact.linkedin && (
+          <li>
+            <a href={profile.contact.linkedin} rel="noopener noreferrer" target="_blank">
+              {ui.contact.linkedin}
+            </a>
+          </li>
+        )
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .contact .body {
+    margin: 0 0 var(--space-5);
+    max-width: 42ch;
+    color: var(--color-ink-muted);
+  }
+</style>

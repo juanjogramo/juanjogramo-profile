@@ -1,0 +1,140 @@
+---
+import type { Profile } from '@/content/schema';
+import type { UiCopy } from '@/content/i18n/ui';
+
+interface Props {
+  profile: Profile;
+  ui: UiCopy;
+}
+
+const { profile, ui } = Astro.props;
+---
+
+<section id="education" class="section" aria-labelledby="education-title">
+  <div class="container">
+    <p class="eyebrow">{ui.education.eyebrow}</p>
+    <h2 id="education-title" class="section-title">{ui.education.title}</h2>
+
+    <div class="edu-grid">
+      <div>
+        <ul class="edu-list">
+          {
+            profile.education.map((item) => (
+              <li>
+                <p class="period">
+                  {item.start} – {item.end}
+                </p>
+                <h3>
+                  {item.degree}
+                  {item.field ? ` · ${item.field}` : ''}
+                </h3>
+                <p>{item.institution}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="subhead">{ui.education.certifications}</h3>
+        <ul class="compact">
+          {
+            profile.certifications.map((cert) => (
+              <li>
+                <span>{cert.year}</span>
+                <span>
+                  {cert.name}
+                  {cert.issuer ? ` · ${cert.issuer}` : ''}
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+
+        <h3 class="subhead">{ui.education.languages}</h3>
+        <ul class="compact">
+          {
+            profile.languages.map((lang) => (
+              <li>
+                <span>{lang.name}</span>
+                <span>{lang.level}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .edu-grid {
+    display: grid;
+    gap: var(--space-7);
+  }
+
+  .edu-list,
+  .compact {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .edu-list {
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .period {
+    margin: 0 0 var(--space-1);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-ink-subtle);
+  }
+
+  .edu-list h3 {
+    margin: 0 0 var(--space-1);
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+  }
+
+  .edu-list p:last-child {
+    margin: 0;
+    color: var(--color-ink-muted);
+  }
+
+  .subhead {
+    margin: 0 0 var(--space-3);
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+  }
+
+  .subhead + .compact + .subhead {
+    margin-top: var(--space-6);
+  }
+
+  .compact {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .compact li {
+    display: grid;
+    grid-template-columns: 4rem minmax(0, 1fr);
+    gap: var(--space-3);
+    color: var(--color-ink-muted);
+  }
+
+  .compact li span:first-child {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-ink-subtle);
+  }
+
+  @media (min-width: 800px) {
+    .edu-grid {
+      grid-template-columns: 1.2fr 1fr;
+      gap: var(--space-8);
+    }
+  }
+</style>

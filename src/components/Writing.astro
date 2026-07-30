@@ -1,0 +1,46 @@
+---
+import type { Profile } from '@/content/schema';
+import type { UiCopy } from '@/content/i18n/ui';
+
+interface Props {
+  profile: Profile;
+  ui: UiCopy;
+}
+
+const { profile, ui } = Astro.props;
+if (!profile.features.writing) return;
+---
+
+<section id="writing" class="section section--alt" aria-labelledby="writing-title">
+  <div class="container">
+    <p class="eyebrow">{ui.writing.eyebrow}</p>
+    <h2 id="writing-title" class="section-title">{ui.writing.title}</h2>
+    {
+      profile.writing.length === 0 ? (
+        <p class="empty">{ui.writing.empty}</p>
+      ) : (
+        <ul>
+          {profile.writing.map((item) => (
+            <li>
+              <h3>{item.title}</h3>
+              {item.summary && <p>{item.summary}</p>}
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .empty {
+    color: var(--color-ink-muted);
+    max-width: 40ch;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+</style>
