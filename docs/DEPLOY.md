@@ -14,27 +14,27 @@ In GitHub → **Settings → Pages**:
 
 For an **apex** domain (`juanjogramo.pe`), create these **A** records:
 
-| Type | Name/Host | Value |
-|------|-----------|--------|
-| A | `@` (or blank) | `185.199.108.153` |
-| A | `@` | `185.199.109.153` |
-| A | `@` | `185.199.110.153` |
-| A | `@` | `185.199.111.153` |
+| Type | Name/Host      | Value             |
+| ---- | -------------- | ----------------- |
+| A    | `@` (or blank) | `185.199.108.153` |
+| A    | `@`            | `185.199.109.153` |
+| A    | `@`            | `185.199.110.153` |
+| A    | `@`            | `185.199.111.153` |
 
 Optional IPv6 (**AAAA**):
 
-| Type | Name/Host | Value |
-|------|-----------|--------|
-| AAAA | `@` | `2606:50c0:8000::111` |
-| AAAA | `@` | `2606:50c0:8001::111` |
-| AAAA | `@` | `2606:50c0:8002::111` |
-| AAAA | `@` | `2606:50c0:8003::111` |
+| Type | Name/Host | Value                 |
+| ---- | --------- | --------------------- |
+| AAAA | `@`       | `2606:50c0:8000::111` |
+| AAAA | `@`       | `2606:50c0:8001::111` |
+| AAAA | `@`       | `2606:50c0:8002::111` |
+| AAAA | `@`       | `2606:50c0:8003::111` |
 
 Recommended **www** → Pages:
 
-| Type | Name/Host | Value |
-|------|-----------|--------|
-| CNAME | `www` | `juanjogramo.github.io` |
+| Type  | Name/Host | Value                   |
+| ----- | --------- | ----------------------- |
+| CNAME | `www`     | `juanjogramo.github.io` |
 
 Keep the verification TXT if GitHub still shows it; it does not hurt.
 

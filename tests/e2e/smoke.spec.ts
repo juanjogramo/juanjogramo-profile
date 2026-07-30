@@ -14,7 +14,10 @@ test.describe('landing page', () => {
 
   test('navigates to Spanish locale', async ({ page }) => {
     await page.goto('/');
-    await page.getByRole('link', { name: /ES|\.\/es/i }).first().click();
+    await page
+      .getByRole('link', { name: /ES|\.\/es/i })
+      .first()
+      .click();
     await expect(page).toHaveURL(/\/es$/);
     await expect(page.getByRole('heading', { level: 1 })).toContainText('Juan José Granados');
     await expect(page.locator('#about')).toBeVisible();
@@ -39,7 +42,10 @@ test.describe('landing page', () => {
     await page.goto('/');
     if (testInfo.project.name === 'mobile') {
       await page.getByRole('button', { name: /Open menu|Abrir menú/i }).click();
-      await page.locator('#mobile-nav').getByRole('link', { name: /Experience/i }).click();
+      await page
+        .locator('#mobile-nav')
+        .getByRole('link', { name: /Experience/i })
+        .click();
     } else {
       await page
         .getByRole('navigation', { name: 'Primary' })

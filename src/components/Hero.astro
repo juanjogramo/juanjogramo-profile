@@ -34,14 +34,19 @@ const ctaSecondary = `./${ui.hero.ctaSecondary.toLowerCase().replace(/\s+/g, '-'
                 data-portrait
               />
             </picture>
-            <canvas class="hero__portrait-canvas" aria-hidden="true"></canvas>
+            <canvas class="hero__portrait-canvas" aria-hidden="true" />
           </div>
         </div>
       )
     }
 
     <div class="hero__copy" data-terminal-boot data-pending>
-      <p class="term-line term-line--cmd" data-boot-item data-boot-mode="command" data-text="whoami">
+      <p
+        class="term-line term-line--cmd"
+        data-boot-item
+        data-boot-mode="command"
+        data-text="whoami"
+      >
         <span class="prompt-prefix" aria-hidden="true">$</span>
         <span class="term-typed"></span>
       </p>

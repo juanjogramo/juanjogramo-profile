@@ -27,16 +27,13 @@ const other = alternateLocale(locale);
 const otherPath = locale === 'en' ? '/es' : '/';
 const ogImage = new URL(siteConfig.socialImage, siteConfig.url).toString();
 const year = new Date().getFullYear();
-const windowTitle =
-  locale === 'es' ? 'juanjogramo@pe: ~ — zsh' : 'juanjogramo@pe: ~ — zsh';
+const windowTitle = locale === 'es' ? 'juanjogramo@pe: ~ — zsh' : 'juanjogramo@pe: ~ — zsh';
 
 const navItems = [
   { href: '#about', label: ui.nav.about, command: 'about' },
   { href: '#experience', label: ui.nav.experience, command: 'experience' },
   { href: '#expertise', label: ui.nav.expertise, command: 'expertise' },
-  ...(profile.features.caseStudies
-    ? [{ href: '#work', label: ui.nav.work, command: 'work' }]
-    : []),
+  ...(profile.features.caseStudies ? [{ href: '#work', label: ui.nav.work, command: 'work' }] : []),
   ...(profile.features.projects
     ? [{ href: '#projects', label: ui.nav.projects, command: 'projects' }]
     : []),
