@@ -43,7 +43,7 @@ const profileEsData = {
         'Lidero el equipo de Plataforma que habilita capacidades de Super App sobre un stack mobile híbrido.',
         'Trabajo con React Native junto a iOS y Android nativos para mantener coherentes las bases de plataforma.',
       ],
-      technologies: ['React Native', 'iOS', 'Android', 'Swift', 'Kotlin'],
+      technologies: ['React Native', 'iOS', 'Android', 'Swift'],
     },
     {
       id: 'bcp-sme',

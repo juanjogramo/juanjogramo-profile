@@ -43,7 +43,7 @@ const profileEnData = {
         'Lead the Platform team that enables Super App capabilities on a hybrid mobile stack.',
         'Work across React Native alongside native iOS and Android to keep platform foundations coherent.',
       ],
-      technologies: ['React Native', 'iOS', 'Android', 'Swift', 'Kotlin'],
+      technologies: ['React Native', 'iOS', 'Android', 'Swift'],
     },
     {
       id: 'bcp-sme',
