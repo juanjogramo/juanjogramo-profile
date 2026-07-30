@@ -27,16 +27,24 @@ const other = alternateLocale(locale);
 const otherPath = locale === 'en' ? '/es' : '/';
 const ogImage = new URL(siteConfig.socialImage, siteConfig.url).toString();
 const year = new Date().getFullYear();
+const windowTitle =
+  locale === 'es' ? 'juanjogramo@pe: ~ — zsh' : 'juanjogramo@pe: ~ — zsh';
 
 const navItems = [
-  { href: '#about', label: ui.nav.about },
-  { href: '#experience', label: ui.nav.experience },
-  { href: '#expertise', label: ui.nav.expertise },
-  ...(profile.features.caseStudies ? [{ href: '#work', label: ui.nav.work }] : []),
-  ...(profile.features.projects ? [{ href: '#projects', label: ui.nav.projects }] : []),
-  ...(profile.features.writing ? [{ href: '#writing', label: ui.nav.writing }] : []),
-  { href: '#education', label: ui.nav.education },
-  { href: '#contact', label: ui.nav.contact },
+  { href: '#about', label: ui.nav.about, command: 'about' },
+  { href: '#experience', label: ui.nav.experience, command: 'experience' },
+  { href: '#expertise', label: ui.nav.expertise, command: 'expertise' },
+  ...(profile.features.caseStudies
+    ? [{ href: '#work', label: ui.nav.work, command: 'work' }]
+    : []),
+  ...(profile.features.projects
+    ? [{ href: '#projects', label: ui.nav.projects, command: 'projects' }]
+    : []),
+  ...(profile.features.writing
+    ? [{ href: '#writing', label: ui.nav.writing, command: 'writing' }]
+    : []),
+  { href: '#education', label: ui.nav.education, command: 'education' },
+  { href: '#contact', label: ui.nav.contact, command: 'contact' },
 ];
 
 const personLd = personJsonLd(profile);
@@ -44,11 +52,12 @@ const websiteLd = websiteJsonLd(pageDescription);
 ---
 
 <!doctype html>
-<html lang={htmlLang(locale)}>
+<html lang={htmlLang(locale)} data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="color-scheme" content="dark" />
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
     <meta name="author" content={profile.fullName} />
@@ -78,11 +87,11 @@ const websiteLd = websiteJsonLd(pageDescription);
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content="#0f6b63" />
+    <meta name="theme-color" content="#070a08" />
 
     <link
       rel="preload"
-      href="/fonts/TypoPRO-LatinModernSans-Regular.woff"
+      href="/fonts/TypoPRO-LatinModernMono-Regular.woff"
       as="font"
       type="font/woff"
       crossorigin
@@ -96,36 +105,26 @@ const websiteLd = websiteJsonLd(pageDescription);
     />
 
     <script is:inline>
-      (function () {
-        try {
-          var preference = localStorage.getItem('theme-preference') || 'system';
-          var theme =
-            preference === 'system'
-              ? window.matchMedia('(prefers-color-scheme: dark)').matches
-                ? 'dark'
-                : 'light'
-              : preference;
-          document.documentElement.dataset.theme = theme;
-        } catch {
-          document.documentElement.dataset.theme = 'light';
-        }
-      })();
+      document.documentElement.classList.add('js');
     </script>
 
     <script is:inline type="application/ld+json" set:html={JSON.stringify(personLd)} />
     <script is:inline type="application/ld+json" set:html={JSON.stringify(websiteLd)} />
   </head>
   <body>
+    <div class="scanlines" aria-hidden="true"></div>
     <a class="skip-link" href="#main">{ui.skipToContent}</a>
-    <Header locale={locale} ui={ui} items={navItems} />
-    <main id="main">
-      <slot />
-    </main>
-    <Footer
-      name={profile.fullName}
-      year={year}
-      rights={ui.footer.rights}
-      builtWith={ui.footer.builtWith}
-    />
+    <div class="terminal-shell">
+      <Header locale={locale} ui={ui} items={navItems} windowTitle={windowTitle} />
+      <main id="main">
+        <slot />
+      </main>
+      <Footer
+        name={profile.fullName}
+        year={year}
+        rights={ui.footer.rights}
+        builtWith={ui.footer.builtWith}
+      />
+    </div>
   </body>
 </html>

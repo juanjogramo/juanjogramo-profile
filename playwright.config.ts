@@ -12,6 +12,8 @@ export default defineConfig({
   use: {
     baseURL,
     trace: 'on-first-retry',
+    // Skip hero typewriter so below-fold sections are visible immediately
+    reducedMotion: 'reduce',
   },
   webServer: {
     command: `npm run preview -- --host 127.0.0.1 --port ${port}`,

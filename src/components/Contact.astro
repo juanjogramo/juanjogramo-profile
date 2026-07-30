@@ -10,9 +10,9 @@ interface Props {
 const { profile, ui } = Astro.props;
 ---
 
-<section id="contact" class="section section--alt" aria-labelledby="contact-title">
+<section id="contact" class="section" aria-labelledby="contact-title">
   <div class="container contact">
-    <p class="eyebrow">{ui.contact.eyebrow}</p>
+    <p class="prompt">mail -s "hello" {profile.contact.email ?? 'you'}</p>
     <h2 id="contact-title" class="section-title">{ui.contact.title}</h2>
     <p class="body">{ui.contact.body}</p>
 
@@ -50,8 +50,9 @@ const { profile, ui } = Astro.props;
 
 <style>
   .contact .body {
-    margin: 0 0 var(--space-5);
+    margin: 0 auto var(--space-5);
     max-width: 42ch;
     color: var(--color-ink-muted);
+    text-align: center;
   }
 </style>

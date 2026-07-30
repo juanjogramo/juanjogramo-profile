@@ -183,7 +183,7 @@ const en: UiCopy = {
     description:
       'Juan José Granados — Technical Leader for Super App Platform work across React Native, iOS, and Android, with deep experience in mobile architecture and engineering enablement.',
     ogDescription:
-      'Technical Leader · Super App Platform. React Native, iOS, Android, architecture, and engineering enablement.',
+      'Technical Leader · Super App Platform @ BCP. React Native, iOS, Android, architecture, and engineering enablement.',
   },
 };
 
@@ -280,7 +280,7 @@ const es: UiCopy = {
     description:
       'Juan José Granados — Líder Técnico de Plataforma Super App con React Native, iOS y Android, con experiencia profunda en arquitectura mobile y habilitación de ingeniería.',
     ogDescription:
-      'Líder Técnico · Plataforma Super App. React Native, iOS, Android, arquitectura y habilitación de equipos.',
+      'Líder Técnico · Plataforma Super App @ BCP. React Native, iOS, Android, arquitectura y habilitación de equipos.',
   },
 };
 

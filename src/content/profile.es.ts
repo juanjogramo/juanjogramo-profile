@@ -7,7 +7,7 @@ import { profileSchema, type Profile } from './schema';
 const profileEsData = {
   fullName: 'Juan José Granados',
   shortName: 'Juan José',
-  professionalTitle: 'Líder Técnico · Plataforma Super App',
+  professionalTitle: 'Líder Técnico · Plataforma Super App @ BCP',
   location: 'Lima, Perú',
   summary:
     'Líder técnico con cerca de una década en software—base profunda en iOS/Swift, ahora liderando un equipo de Plataforma para una Super App que combina React Native con iOS y Android nativos.',

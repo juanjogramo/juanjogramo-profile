@@ -9,10 +9,11 @@ interface Props {
 const { name, year, rights, builtWith } = Astro.props;
 ---
 
-<footer class="site-footer">
+<footer class="site-footer post-boot" data-post-boot>
   <div class="container site-footer__inner">
+    <p class="prompt" style="margin:0">exit 0</p>
     <p>© {year} {name}. {rights}</p>
-    <p>{builtWith}</p>
+    <p>{builtWith} · dark-only terminal UI</p>
   </div>
 </footer>
 
@@ -23,10 +24,10 @@ const { name, year, rights, builtWith } = Astro.props;
   }
 
   .site-footer__inner {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-3);
-    justify-content: space-between;
+    display: grid;
+    gap: var(--space-2);
+    justify-items: center;
+    text-align: center;
     color: var(--color-ink-subtle);
     font-size: var(--text-sm);
   }

@@ -19,12 +19,14 @@ const ui = getUi(locale);
 
 <BaseLayout locale={locale} profile={profile} ui={ui}>
   <Hero profile={profile} ui={ui} />
-  <About profile={profile} ui={ui} />
-  <Experience profile={profile} ui={ui} />
-  <Expertise profile={profile} ui={ui} />
-  <FeaturedWork profile={profile} ui={ui} />
-  <Projects profile={profile} ui={ui} />
-  <Writing profile={profile} ui={ui} />
-  <Education profile={profile} ui={ui} />
-  <Contact profile={profile} ui={ui} />
+  <div class="post-boot" data-post-boot>
+    <About profile={profile} ui={ui} />
+    <Experience profile={profile} ui={ui} />
+    <Expertise profile={profile} ui={ui} />
+    <FeaturedWork profile={profile} ui={ui} />
+    <Projects profile={profile} ui={ui} />
+    <Writing profile={profile} ui={ui} />
+    <Education profile={profile} ui={ui} />
+    <Contact profile={profile} ui={ui} />
+  </div>
 </BaseLayout>

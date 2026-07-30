@@ -12,7 +12,7 @@ const { profile, ui } = Astro.props;
 
 <section id="education" class="section" aria-labelledby="education-title">
   <div class="container">
-    <p class="eyebrow">{ui.education.eyebrow}</p>
+    <p class="prompt">cat credentials.txt</p>
     <h2 id="education-title" class="section-title">{ui.education.title}</h2>
 
     <div class="edu-grid">
@@ -36,7 +36,7 @@ const { profile, ui } = Astro.props;
       </div>
 
       <div>
-        <h3 class="subhead">{ui.education.certifications}</h3>
+        <h3 class="subhead"># {ui.education.certifications.toLowerCase()}</h3>
         <ul class="compact">
           {
             profile.certifications.map((cert) => (
@@ -51,7 +51,7 @@ const { profile, ui } = Astro.props;
           }
         </ul>
 
-        <h3 class="subhead">{ui.education.languages}</h3>
+        <h3 class="subhead"># {ui.education.languages.toLowerCase()}</h3>
         <ul class="compact">
           {
             profile.languages.map((lang) => (
@@ -70,7 +70,7 @@ const { profile, ui } = Astro.props;
 <style>
   .edu-grid {
     display: grid;
-    gap: var(--space-7);
+    gap: var(--space-6);
   }
 
   .edu-list,
@@ -82,19 +82,24 @@ const { profile, ui } = Astro.props;
 
   .edu-list {
     display: grid;
-    gap: var(--space-5);
+    gap: var(--space-4);
+  }
+
+  .edu-list li,
+  .compact li {
+    padding: var(--space-3);
+    border: 1px solid var(--color-border);
+    background: var(--color-bg-muted);
   }
 
   .period {
     margin: 0 0 var(--space-1);
-    font-family: var(--font-mono);
     font-size: var(--text-xs);
     color: var(--color-ink-subtle);
   }
 
   .edu-list h3 {
     margin: 0 0 var(--space-1);
-    font-family: var(--font-display);
     font-size: var(--text-lg);
   }
 
@@ -105,17 +110,17 @@ const { profile, ui } = Astro.props;
 
   .subhead {
     margin: 0 0 var(--space-3);
-    font-family: var(--font-display);
-    font-size: var(--text-lg);
+    font-size: var(--text-sm);
+    color: var(--color-amber);
   }
 
   .subhead + .compact + .subhead {
-    margin-top: var(--space-6);
+    margin-top: var(--space-5);
   }
 
   .compact {
     display: grid;
-    gap: var(--space-3);
+    gap: var(--space-2);
   }
 
   .compact li {
@@ -123,10 +128,10 @@ const { profile, ui } = Astro.props;
     grid-template-columns: 4rem minmax(0, 1fr);
     gap: var(--space-3);
     color: var(--color-ink-muted);
+    text-align: left;
   }
 
   .compact li span:first-child {
-    font-family: var(--font-mono);
     font-size: var(--text-xs);
     color: var(--color-ink-subtle);
   }
@@ -134,7 +139,7 @@ const { profile, ui } = Astro.props;
   @media (min-width: 800px) {
     .edu-grid {
       grid-template-columns: 1.2fr 1fr;
-      gap: var(--space-8);
+      gap: var(--space-6);
     }
   }
 </style>

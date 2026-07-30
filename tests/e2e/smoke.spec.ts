@@ -14,19 +14,16 @@ test.describe('landing page', () => {
 
   test('navigates to Spanish locale', async ({ page }) => {
     await page.goto('/');
-    await page.getByRole('link', { name: /ES/i }).first().click();
+    await page.getByRole('link', { name: /ES|\.\/es/i }).first().click();
     await expect(page).toHaveURL(/\/es$/);
     await expect(page.getByRole('heading', { level: 1 })).toContainText('Juan José Granados');
     await expect(page.locator('#about')).toBeVisible();
   });
 
-  test('theme switch updates document theme', async ({ page }) => {
+  test('stays dark-only without theme switcher', async ({ page }) => {
     await page.goto('/');
-    const select = page.locator('[data-theme-select]');
-    await select.selectOption('dark');
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
-    await select.selectOption('light');
-    await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+    await expect(page.locator('[data-theme-select]')).toHaveCount(0);
   });
 
   test('professional links are present', async ({ page }) => {
@@ -42,13 +39,20 @@ test.describe('landing page', () => {
     await page.goto('/');
     if (testInfo.project.name === 'mobile') {
       await page.getByRole('button', { name: /Open menu|Abrir menú/i }).click();
-      await page.locator('#mobile-nav').getByRole('link', { name: 'Experience' }).click();
+      await page.locator('#mobile-nav').getByRole('link', { name: /Experience/i }).click();
     } else {
       await page
         .getByRole('navigation', { name: 'Primary' })
-        .getByRole('link', { name: 'Experience' })
+        .getByRole('link', { name: /Experience/i })
         .click();
     }
     await expect(page.locator('#experience')).toBeVisible();
+  });
+
+  test('shows portrait photo', async ({ page }) => {
+    await page.goto('/');
+    const img = page.locator('img.hero__portrait');
+    await expect(img).toBeVisible();
+    await expect(img).toHaveAttribute('src', /portrait\.jpg/);
   });
 });
