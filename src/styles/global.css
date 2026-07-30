@@ -1,9 +1,13 @@
+@import './fonts.css';
+
 :root {
   color-scheme: light dark;
 
-  --font-display: 'Syne', 'Avenir Next', 'Segoe UI', sans-serif;
-  --font-body: 'Source Sans 3', 'Source Sans Pro', 'Helvetica Neue', sans-serif;
-  --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Menlo, monospace;
+  --font-display: 'Latin Modern Sans', 'Latin Modern', 'Computer Modern Sans', 'Helvetica Neue',
+    sans-serif;
+  --font-body: 'Latin Modern Sans', 'Latin Modern', 'Computer Modern Sans', 'Helvetica Neue',
+    sans-serif;
+  --font-mono: 'Latin Modern Mono', 'Latin Modern Sans', ui-monospace, monospace;
 
   --text-xs: clamp(0.75rem, 0.72rem + 0.15vw, 0.8125rem);
   --text-sm: clamp(0.875rem, 0.84rem + 0.2vw, 0.9375rem);

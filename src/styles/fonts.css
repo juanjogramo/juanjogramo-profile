@@ -1,0 +1,49 @@
+/* Latin Modern — same family as the moderncv LaTeX CV (lmodern + sans). */
+
+@font-face {
+  font-family: 'Latin Modern Sans';
+  src: url('/fonts/TypoPRO-LatinModernSans-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Latin Modern Sans';
+  src: url('/fonts/TypoPRO-LatinModernSans-Oblique.woff') format('woff');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Latin Modern Sans';
+  src: url('/fonts/TypoPRO-LatinModernSans-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Latin Modern Sans';
+  src: url('/fonts/TypoPRO-LatinModernSans-BoldOblique.woff') format('woff');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Latin Modern Mono';
+  src: url('/fonts/TypoPRO-LatinModernMono-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Latin Modern Mono';
+  src: url('/fonts/TypoPRO-LatinModernMono-Italic.woff') format('woff');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}

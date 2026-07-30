@@ -55,14 +55,18 @@ const { profile, ui } = Astro.props;
     {
       profile.features.portrait && profile.portrait && (
         <div class="hero__media reveal reveal-delay-2">
-          <img
-            src={profile.portrait.src}
-            alt={profile.portrait.alt}
-            width="320"
-            height="373"
-            loading="eager"
-            fetchpriority="high"
-          />
+          <picture>
+            <source srcset="/images/portrait.webp" type="image/webp" />
+            <img
+              src={profile.portrait.src}
+              alt={profile.portrait.alt}
+              width="819"
+              height="1024"
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+            />
+          </picture>
         </div>
       )
     }
@@ -98,7 +102,7 @@ const { profile, ui } = Astro.props;
     font-size: var(--text-3xl);
     line-height: var(--leading-tight);
     letter-spacing: -0.035em;
-    font-weight: 760;
+    font-weight: 700;
     max-width: 12ch;
   }
 
@@ -130,26 +134,29 @@ const { profile, ui } = Astro.props;
 
   .hero__media img {
     width: min(100%, 18rem);
-    aspect-ratio: 240 / 280;
+    aspect-ratio: 819 / 1024;
     object-fit: cover;
+    object-position: center top;
     border-radius: var(--radius-lg);
     border: 1px solid var(--color-border);
     box-shadow: var(--shadow-md);
-    background: var(--color-bg-muted);
+    background: #1a1a1a;
   }
 
   @media (min-width: 860px) {
     .hero__grid {
-      grid-template-columns: minmax(0, 1.3fr) minmax(14rem, 0.7fr);
+      grid-template-columns: minmax(14rem, 0.75fr) minmax(0, 1.25fr);
       align-items: center;
     }
 
+    /* Portrait left so the gaze leads into the copy */
     .hero__media {
-      justify-self: end;
+      order: -1;
+      justify-self: start;
     }
 
     .hero__media img {
-      width: 20rem;
+      width: 22rem;
     }
   }
 </style>

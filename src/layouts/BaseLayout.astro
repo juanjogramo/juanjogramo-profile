@@ -80,11 +80,19 @@ const websiteLd = websiteJsonLd(pageDescription);
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#0f6b63" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Syne:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      href="/fonts/TypoPRO-LatinModernSans-Regular.woff"
+      as="font"
+      type="font/woff"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/TypoPRO-LatinModernSans-Bold.woff"
+      as="font"
+      type="font/woff"
+      crossorigin
     />
 
     <script is:inline>

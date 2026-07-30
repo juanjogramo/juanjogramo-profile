@@ -73,29 +73,19 @@ System preference by default; user choice persisted in `localStorage`.
 
 ## Deployment
 
-Recommended: **Vercel** or **Cloudflare Pages** (static `dist/`).
+Recommended: **GitHub Pages** with custom domain `juanjogramo.pe`.
 
-1. Connect the GitHub repo.
+See [docs/DEPLOY.md](docs/DEPLOY.md) for DNS records and the Actions workflow.
+
+Alternatives: **Vercel** or **Cloudflare Pages** (static `dist/`) if you switch later.
+
+1. Connect the GitHub repo (already: `juanjogramo/juanjogramo-profile`).
 2. Build command: `npm run build`
 3. Output directory: `dist`
-4. Set env `PUBLIC_SITE_URL` to `https://juanjogramo.pe` (or override for previews).
-5. Point the custom domain `juanjogramo.pe`; SSL is provided by the platform.
-6. Preview deployments come free with PRs on both platforms.
-7. Rollback: redeploy a previous deployment in the provider UI.
-
-Security headers:
-
-- Vercel: `vercel.json`
-- Cloudflare/Netlify-style: `public/_headers`
-
-**Do not deploy without explicit approval.**
-
-### Custom domain
-
-1. Add the domain in the hosting dashboard.
-2. Update DNS as instructed.
-3. Set `PUBLIC_SITE_URL` and update `public/robots.txt` sitemap host if needed.
-4. Rebuild.
+4. Env: `PUBLIC_SITE_URL=https://juanjogramo.pe`
+5. Point DNS as documented in `docs/DEPLOY.md`; SSL via GitHub Pages (**Enforce HTTPS**).
+6. Preview: use branch workflows or another host for PR previews if needed.
+7. Rollback: redeploy a previous Actions run / commit.
 
 ## Testing
 

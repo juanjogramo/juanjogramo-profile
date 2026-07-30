@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
+    "@typopro/web-latin-modern": "^3.7.5",
     "astro": "^7.1.6",
     "zod": "^4.4.3"
   },

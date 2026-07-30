@@ -10,7 +10,7 @@ Defined in `src/styles/global.css`:
 
 - **Light:** cool stone background `#F3F5F7`, ink `#121820`, teal accent `#0F6B63`
 - **Dark:** near-black `#0A0E14`, soft ink, brighter teal `#3DB8AC`
-- **Type:** Syne (display), Source Sans 3 (body), IBM Plex Mono (meta)
+- **Type:** Latin Modern Sans (same as the LaTeX moderncv `lmodern` + `sans` setup); Latin Modern Mono for meta labels
 - **Motion:** short fade/rise; disabled under `prefers-reduced-motion`
 - **Layout:** single-column narrative, timeline on desktop with meta rail
 
