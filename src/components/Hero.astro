@@ -163,6 +163,7 @@ const ctaSecondary = `./${ui.hero.ctaSecondary.toLowerCase().replace(/\s+/g, '-'
     gap: var(--space-6);
     justify-items: center;
     text-align: center;
+    min-width: 0;
   }
 
   .hero__copy {
@@ -170,6 +171,8 @@ const ctaSecondary = `./${ui.hero.ctaSecondary.toLowerCase().replace(/\s+/g, '-'
     display: grid;
     justify-items: center;
     width: 100%;
+    max-width: 100%;
+    min-width: 0;
     gap: 0;
   }
 
@@ -226,8 +229,9 @@ const ctaSecondary = `./${ui.hero.ctaSecondary.toLowerCase().replace(/\s+/g, '-'
 
   .term-line {
     margin: 0 auto var(--space-3);
-    max-width: 46ch;
+    max-width: min(46ch, 100%);
     text-align: center;
+    min-width: 0;
   }
 
   .term-line--cmd {
@@ -247,7 +251,7 @@ const ctaSecondary = `./${ui.hero.ctaSecondary.toLowerCase().replace(/\s+/g, '-'
     line-height: var(--leading-tight);
     font-weight: 700;
     color: var(--color-ink);
-    max-width: 18ch;
+    max-width: min(18ch, 100%);
   }
 
   .hero__title {
@@ -255,8 +259,16 @@ const ctaSecondary = `./${ui.hero.ctaSecondary.toLowerCase().replace(/\s+/g, '-'
     font-size: var(--text-lg);
     font-weight: 700;
     color: var(--color-accent);
-    width: max-content;
-    max-width: 100%;
+    width: 100%;
+    max-width: min(40ch, 100%);
+    overflow-wrap: break-word;
+    text-wrap: balance;
+  }
+
+  @media (min-width: 640px) {
+    .hero__title {
+      width: max-content;
+    }
   }
 
   .hero__value {
@@ -498,9 +510,22 @@ const ctaSecondary = `./${ui.hero.ctaSecondary.toLowerCase().replace(/\s+/g, '-'
     items.forEach((item) => {
       item.removeAttribute('data-boot-done');
       item.removeAttribute('data-boot-active');
-      item.querySelectorAll<HTMLElement>('.term-typed').forEach((node) => {
-        node.textContent = '';
-      });
+      const mode = item.dataset.bootMode || 'output';
+      // Only commands are typed; outputs keep (or restore) their full text
+      if (mode === 'command') {
+        item.querySelectorAll<HTMLElement>('.term-typed').forEach((node) => {
+          node.textContent = '';
+        });
+      } else if (mode === 'command-block') {
+        const cmdTyped = item.querySelector<HTMLElement>('.term-line--cmd .term-typed');
+        if (cmdTyped) cmdTyped.textContent = '';
+        const outLine = item.querySelector<HTMLElement>('.path');
+        const outTyped = outLine?.querySelector<HTMLElement>('.term-typed');
+        if (outTyped && outLine?.dataset.text) outTyped.textContent = outLine.dataset.text;
+      } else if (mode === 'output') {
+        const typed = item.querySelector<HTMLElement>('.term-typed');
+        if (typed && item.dataset.text) typed.textContent = item.dataset.text;
+      }
     });
 
     for (const item of items) {
@@ -525,18 +550,29 @@ const ctaSecondary = `./${ui.hero.ctaSecondary.toLowerCase().replace(/\s+/g, '-'
         if (cmdTyped && cursor) {
           await typeInto(cmdTyped, cmdText, cursor, 45);
         }
-        await sleep(180);
-        if (outTyped && cursor) {
-          await typeInto(outTyped, outText, cursor, 18);
+        await sleep(160);
+        if (outTyped) {
+          outTyped.textContent = outText;
+          if (cursor) outTyped.appendChild(cursor);
         }
-      } else {
+        await sleep(120);
+      } else if (mode === 'command') {
         const typed = item.querySelector<HTMLElement>('.term-typed');
         const text = item.dataset.text ?? '';
-        const speed = mode === 'command' ? 48 : 22;
         if (typed) {
-          await typeInto(typed, text, cursor, speed);
+          await typeInto(typed, text, cursor, 48);
         }
-        await sleep(mode === 'command' ? 220 : 140);
+        await sleep(220);
+      } else {
+        // Output lines: reveal instantly (light fade)
+        const typed = item.querySelector<HTMLElement>('.term-typed');
+        if (typed && item.dataset.text) typed.textContent = item.dataset.text;
+        item.style.opacity = '0';
+        item.style.transition = 'opacity 180ms ease';
+        requestAnimationFrame(() => {
+          item.style.opacity = '1';
+        });
+        await sleep(200);
       }
 
       item.removeAttribute('data-boot-active');
@@ -545,9 +581,9 @@ const ctaSecondary = `./${ui.hero.ctaSecondary.toLowerCase().replace(/\s+/g, '-'
       item.style.transition = '';
     }
 
-    // Park cursor at the end of the last typed line
+    // Park cursor after the final path output
     const lastTyped = root.querySelector<HTMLElement>(
-      '[data-boot-item][data-boot-done]:last-of-type .term-typed, .hero__cwd .path .term-typed',
+      '.hero__cwd .path .term-typed, [data-boot-mode="command"][data-boot-done]:last-of-type .term-typed',
     );
     if (cursor && lastTyped) {
       lastTyped.appendChild(cursor);
